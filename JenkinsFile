@@ -17,7 +17,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SONAR_HOME') {
-                    bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=DeployBack -Dsonar.host.url=http://localhost:9000 -Dsonar.login=4c4f5ad1702cb0615b939c9e4fb601a5bfe55c3b -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/** -Dsonar.coverage.exclusions=**/src/test** -Dsonar.coverage.exclusions=**/model/** -Dsonar.coverage.exclusions=**Application.java"
+                    bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=DeployBack -Dsonar.host.url=http://localhost:9000 -Dsonar.login=4c4f5ad1702cb0615b939c9e4fb601a5bfe55c3b -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test**,**/model/**,**Application.java"
                 }
             }
         }
