@@ -36,8 +36,19 @@ pipeline {
         }
         stage('API Tests') {
             steps {
-                git credentialsId: 'gitHub_login', url: 'https://github.com/andersonrmanchini/tasks-api-test'
-                bat 'mvn test'
+                dir('api-test') {
+                    git credentialsId: 'gitHub_login', url: 'https://github.com/andersonrmanchini/tasks-api-test'
+                    bat 'mvn test'
+                }
+            }
+        }
+        stage('Deploy Frontend') {
+            steps {
+                dir('frontend') {
+                    git credentialsId: 'gitHub_login', url: 'https://github.com/andersonrmanchini/tasks-api-test'
+                    bat 'mvn clean package'
+                    deploy adapters: [tomcat8(credentialsId: 'Tomcat_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
             }
         }
     }
